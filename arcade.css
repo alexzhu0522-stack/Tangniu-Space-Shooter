@@ -14,8 +14,8 @@ canvas, img { image-rendering: pixelated; }
     text-shadow: 4px 4px #235a92, 6px 6px #06172b; margin-bottom: 8px; }
 #start-screen .subtitle { font-size: 12px; color: #a5c8d4; letter-spacing: 5px; margin-bottom: 12px; }
 .hangar { display: flex; align-items: center; justify-content: center; gap: 28px; height: 130px; margin: 6px 0; }
-.hangar .pilot { width: 144px; height: 96px; }
-.hangar .cow { width: 80px; height: 80px; }
+.hangar .pilot { width: 180px; height: 120px; }
+.hangar .cow { width: 80px; height: 96px; }
 .versus { color: #6d7f92; font-size: 14px; }
 .menu-buttons { display: flex; gap: 10px; }
 .btn { font-weight: bold; border: 2px solid #66b4d9; border-radius: 0; padding: 15px 24px;
@@ -39,6 +39,8 @@ canvas, img { image-rendering: pixelated; }
 #game-over-screen h2 { color: #f58065; text-shadow: 3px 3px #542731; }
 #mobile-controls { display: none; }
 @media (max-width: 520px) {
+    .hangar { gap: 10px; }
+    .hangar .pilot { width: 144px; height: 96px; }
     #hud { left: 10px; right: 10px; padding-right: 42px; gap: 4px; font-size: 10px; }
     #hud .score { font-size: 11px; } .hud-sub { font-size: 9px; }
     #sound-toggle { width: 30px; height: 30px; right: 7px; font-size: 16px; }

@@ -416,10 +416,11 @@
 
     function getGameplayBounds() {
         const mobile = window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
-        const minY = 75;
-        const bottomMargin = mobile ? (canvas.height <= 480 ? 134 : 184) : 45;
+        const visualScale = Math.min(2, canvas.width / 280);
+        const minY = Math.max(75, 65 + 24 * visualScale);
+        const bottomMargin = mobile ? (canvas.height <= 480 ? 102 : 152) + 24 * visualScale + 8 : 56;
         return {
-            minX: Math.max(25, canvas.width * 0.05),
+            minX: Math.max(25, canvas.width * 0.05, 36 * visualScale + 4),
             maxX: Math.min(canvas.width - 25, canvas.width * 0.58),
             minY,
             maxY: Math.max(minY, canvas.height - bottomMargin),
@@ -933,28 +934,9 @@
                 ctx.fillText(p.type === 'health' ? '+' : p.type === 'weapon' ? 'W' : '♥', p.x, p.y + 4);
             });
 
-            // Player bullets
-            game.bullets.forEach(b => {
-                const grad = ctx.createLinearGradient(b.x - 12, b.y, b.x, b.y);
-                grad.addColorStop(0, '#0ff');
-                grad.addColorStop(1, 'transparent');
-                ctx.fillStyle = grad;
-                ctx.fillRect(b.x - 12, b.y - 2, 12, 4);
-                ctx.fillStyle = '#fff';
-                ctx.fillRect(b.x - 6, b.y - 1, 6, 2);
-            });
-
-            // Enemy bullets
-            game.enemyBullets.forEach(b => {
-                ctx.fillStyle = b.color || '#f44';
-                ctx.beginPath();
-                ctx.arc(b.x, b.y, 4, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.fillStyle = '#fff';
-                ctx.beginPath();
-                ctx.arc(b.x, b.y, 1.5, 0, Math.PI * 2);
-                ctx.fill();
-            });
+            // Chunky pixel bolts; the collision coordinates/damage are unchanged.
+            game.bullets.forEach(b => drawPixelBolt(b));
+            game.enemyBullets.forEach(b => drawPixelBolt(b, true));
 
             // Enemies
             game.enemies.forEach(drawEnemy);

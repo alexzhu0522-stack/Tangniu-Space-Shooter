@@ -1,85 +1,35 @@
-# 🚀 Spaceship Shooter Game
+# 太空牛 · Tangniu UFO
 
-A horizontal side-scrolling space shooter built with vanilla HTML5 Canvas and JavaScript. No frameworks, no dependencies — just pure browser gaming.
+牛's original photograph in a large, low-seated UFO, fighting deliberately crude upright 牛来. Vanilla HTML Canvas, JavaScript, CSS, local sprites and synthesized effects; no npm, backend, account or runtime dependency.
 
-Original game by [Alfred Ang](https://github.com/alfredang), preserved under the MIT License.
+## Play
 
-## 🎮 Play Now
+Open `index.html` with its adjacent files, or serve this directory with `python -m http.server 8766`. The verified public game URL is provided in the delivery. The `dist/` directory contains the same playable release for permanent static hosting and GitHub Pages.
 
-**[▶ Play Spaceship Shooter](https://alfredang.github.io/spaceship-shooter-game/)**
+Choose **STAGE 1** for the preserved scripted stage, or **ENDLESS MODE** for escalating waves and a boss every fifth wave. Endless records are saved per browser/device. Blocked storage falls back to records for the current session.
 
-## 📸 Screenshots
+| Device | Movement | Fire |
+|---|---|---|
+| Desktop | WASD / arrows, including diagonals | Space |
+| Phone / tablet | Four direction buttons or two-axis swipe | FIRE; simultaneous touches supported |
 
-> These upstream screenshots preserve the original Phase 0 vertical layout. Phase 1A gameplay now uses a horizontal layout while retaining the same art style.
+Weapons upgrade through three levels. Pickups restore health, add lives or improve weapons. NIU LAI PRIME changes phase below 50% HP. Restart and Main Menu are available after game over or Stage 1 completion.
 
-<div align="center">
+## Maintenance
 
-### Start Screen
-![Start Screen](screenshots/start-screen.png)
+- `index.html`: existing core engine, Stage 1 script, input, collision, sound and UI.
+- `art.js`, `arcade.css`: sprite rendering, rectangular pixel bolts and presentation.
+- `modes.js`: Endless waves, bounded scaling, records and cleanup.
+- `assets/player/`: unchanged source photo, pixelated head and UFO.
+- `assets/enemies/`: basic, flying, heavy and boss 牛来.
+- `tools/build_assets.py`: reproducible photo crop/mask/downsample and pixel sprites; Pillow is development-only.
+- `tools/build_static.py`: copy runtime files to `dist/`; no compilation/dependency installation.
+- `tests/verify.cjs`: browser regression and accelerated endurance tests using an existing Playwright installation. Set `NODE_PATH`, `BROWSER_PATH`, optional `GAME_URL` and `TEST_OUTPUT`; serve locally and run `node tests/verify.cjs`.
+- `PHASE1B_REPORT.md`: implementation details, all checks and endurance results.
+- `.openai/hosting.json`: registered static Site identity.
 
-### Gameplay
-![Gameplay Action](screenshots/gameplay-action.png)
+Phase 0 (`de6e257`) and Phase 1A (`34572db`) remain intact in Git history. Phase 1A's 31-event Stage 1 timeline is unchanged. Old screenshots and prior reports document those historical builds.
 
-### Mobile
-<img src="screenshots/mobile-start.png" width="280" alt="Mobile Start"> &nbsp; <img src="screenshots/mobile-gameplay.png" width="280" alt="Mobile Gameplay">
+## Credits
 
-</div>
-
-## 🛸 Features
-
-- **One deterministic stage** — three enemy sections followed by a final boss
-- **Horizontal shooter flow** — player on the left, enemies entering from the right
-- **Free eight-direction movement** — normalized WASD, arrow-key, and touch movement
-- **4 enemy types** — Basic, Fast, Tank, and Boss enemies
-- **Weapon upgrades** — collect powerups to upgrade to triple-shot
-- **Health & lives system** — survive as long as you can
-- **Particle effects** — explosions, screen shake, engine glow
-- **Mobile support** — four-direction multi-touch controls plus two-axis swipe movement
-- **Boss fight** — Stage 1 ends with the original boss archetype
-- **🔊 Sound effects** — all synthesized via Web Audio API
-- **Mute toggle** — sound on/off button in the top-right corner
-
-## 🎯 Controls
-
-| Platform | Move | Fire |
-|----------|------|------|
-| Desktop | WASD or arrow keys | Space |
-| Mobile | Four-direction touch pad / two-axis swipe | Fire button |
-
-## 🖼️ Tech Stack
-
-| Technology | Purpose |
-|-----------|---------|
-| HTML5 Canvas | Game rendering |
-| Vanilla JavaScript | Game logic |
-| Web Audio API | Synthesized sound effects |
-| CSS3 | UI overlay & effects |
-| Static hosting | Direct `index.html` or GitHub Pages |
-
-## 🏗️ Architecture
-
-```
-spaceship-shooter-game/
-├── index.html          # Complete game (single file)
-├── screenshots/        # Game screenshots
-├── LICENSE             # MIT license and original attribution
-├── PHASE0_AUDIT.md     # Verified original baseline audit
-├── PHASE1A_REPORT.md   # Horizontal Stage 1 implementation report
-└── README.md
-```
-
-## 🚀 Getting Started
-
-```bash
-# Clone the repo
-git clone https://github.com/alfredang/spaceship-shooter-game.git
-
-# Open in browser
-open index.html
-```
-
-No build step needed — it's a single HTML file.
-
-## 📝 License
-
-MIT — see [LICENSE](LICENSE).
+Original engine by [Alfred Ang](https://github.com/alfredang/spaceship-shooter-game), under the included MIT license. Supplied photograph and character references are used for the requested adaptation; the engine license does not claim ownership of third-party reference material. 牛's face was sampled from the original photo, never redrawn or generated.

@@ -20,6 +20,9 @@ function drawPlayer() {
     ctx.save();
     ctx.imageSmoothingEnabled = false;
     ctx.translate(Math.round(player.x) - (shooting ? 2 : 0), Math.round(player.y));
+    // Double-size on desktop; preserve room to manoeuvre on narrow phones.
+    const scale = Math.min(2, canvas.width / 280);
+    ctx.scale(scale, scale);
     ctx.globalAlpha = player.invincible > 0 && Math.floor(player.invincible / 4) % 2 ? 0.45 : 1;
     ctx.fillStyle = frame ? '#d9faff' : '#35aaf2';
     ctx.fillRect(-31 - (moving ? 9 : 3) - frame * 3, 9, (moving ? 13 : 7) + frame * 3, 4);
@@ -36,18 +39,32 @@ function drawPlayer() {
 }
 
 function drawEnemy(e) {
-    const size = e.type === 'boss' ? 140 : e.type === 'tank' ? 64 : 48;
+    const size = e.type === 'boss' ? 168 : e.type === 'tank' ? 72 : 56;
+    const height = size * 1.2;
     const img = sprites[e.type];
     if (!img.complete || !img.naturalWidth) return;
     ctx.save(); ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(img, Math.round(e.x - size / 2), Math.round(e.y - size / 2), size, size);
+    ctx.drawImage(img, Math.round(e.x - size / 2), Math.round(e.y - height / 2), size, height);
     if (e.type === 'boss' && e.hp < e.maxHp / 2) {
         ctx.fillStyle = '#ff3021';
-        ctx.fillRect(e.x - 37, e.y - 7, 18, 5); ctx.fillRect(e.x + 14, e.y - 7, 14, 5);
+        ctx.fillRect(e.x - size * 0.225, e.y - height * 0.104, size * 0.175, 5);
+        ctx.fillRect(e.x + size * 0.1, e.y - height * 0.104, size * 0.15, 5);
         ctx.fillStyle = Math.floor(e.time / 6) % 2 ? '#ffb027' : '#e04416';
         ctx.fillRect(e.x - 68, e.y + 23, 9, 12); ctx.fillRect(e.x + 59, e.y + 23, 9, 12);
     }
     ctx.restore();
+}
+
+function drawPixelBolt(b, hostile = false) {
+    const x = Math.round(b.x), y = Math.round(b.y);
+    ctx.fillStyle = hostile ? '#7d2821' : '#164278';
+    ctx.fillRect(x - 10, y - 4, 20, 8);
+    ctx.fillStyle = hostile ? '#f34e30' : '#28abff';
+    ctx.fillRect(x - 8, y - 3, 16, 6);
+    ctx.fillRect(x - 12, y - 1, 24, 2);
+    ctx.fillStyle = hostile ? '#ffbd67' : '#94e8ff';
+    ctx.fillRect(x - 5, y - 2, 11, 4);
+    ctx.fillStyle = '#fff3d4'; ctx.fillRect(x - 3, y - 1, 7, 2);
 }
 
 function drawBossHUD() {
